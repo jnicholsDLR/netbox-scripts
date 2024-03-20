@@ -4,6 +4,8 @@ from django.utils.text import slugify
 from dcim.choices import DeviceStatusChoices, SiteStatusChoices
 from dcim.models import Device, DeviceRole, DeviceType, Site, Rack
 
+# inspiration taken from
+# https://github.com/netbox-community/netbox-zero-to-hero/blob/main/custom_scripts/NewBranchScript.py
 
 class NewSiteScript(Script):
 
