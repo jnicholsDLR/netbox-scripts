@@ -73,7 +73,7 @@ class NewSiteScript(Script):
                 server = Device(
                     device_type=data['server_model'],
                     # csvr1a1.foo12, csvr2b1.bar34
-                    name=f'csvr{i}{zone}1.{site.slug.lower()}',
+                    name=f'csvr{i}{zone}1.{data['site_name']}',
                     site=new_site,
                     rack=new_rack,
                     status=DeviceStatusChoices.STATUS_PLANNED,
