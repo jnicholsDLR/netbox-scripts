@@ -46,7 +46,6 @@ class NewSiteScript(Script):
             rack_name=f"{data['site_name']}_{zone}1"
             new_rack = Rack(
                 name=rack_name,
-                slug=slugify(rack_name),
                 site=new_site,
                 status=SiteStatusChoices.STATUS_PLANNED
             )
