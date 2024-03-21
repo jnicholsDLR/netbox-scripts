@@ -23,6 +23,13 @@ class NewSiteScript(Script):
         description="PE switch model",
         model=DeviceType
     )
+    server_count = IntegerVar(
+        description="Number of servers to create"
+    )
+    server_model = ObjectVar(
+        description="Server model",
+        model=DeviceType
+    )
 
     def run(self, data, commit):
 
@@ -62,6 +69,20 @@ class NewSiteScript(Script):
                 switch.save()
                 self.log_success(f"Created new switch: {switch}")
 
+            # Create Servers per rack
+            server_role = DeviceRole.objects.get(name='csvr')
+            for i in range(1, data['server_count'] + 1):
+                server = Device(
+                    device_type=data['server_model'],
+                    # csvr1a1.foo12, csvr2b1.bar34
+                    name=f"csvr{i}{zone}1.{data['site_name']}",
+                    site=new_site,
+                    rack=new_rack,
+                    status=DeviceStatusChoices.STATUS_PLANNED,
+                    device_role=server_role
+                )
+                server.save()
+                self.log_success(f"Created new server: {server}")
 
         # Generate a CSV table of new devices
         output = [
